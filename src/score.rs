@@ -30,7 +30,6 @@ fn setup_score(mut commands: Commands, asset_server: Res<AssetServer>) {
                 },
                 ..Default::default()
             },
-            // Use the `Text::with_section` constructor
             text: Text {
                 sections: vec![
                     TextSection {
@@ -52,20 +51,6 @@ fn setup_score(mut commands: Commands, asset_server: Res<AssetServer>) {
                 ],
                 ..Default::default()
             },
-            // text: Text::with_section(
-            //     // Accepts a `String` or any type that converts into a `String`, such as `&str`
-            //     "Score: 0",
-            //     TextStyle {
-            //         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
-            //         font_size: 32.0,
-            //         color: Color::WHITE,
-            //     },
-            //     // Note: You can use `Default::default()` in place of the `TextAlignment`
-            //     TextAlignment {
-            //         horizontal: HorizontalAlign::Center,
-            //         ..Default::default()
-            //     },
-            // ),
             ..Default::default()
         })
         .insert(Score::default());

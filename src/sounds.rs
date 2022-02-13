@@ -1,14 +1,14 @@
 use bevy::prelude::*;
 use bevy_kira_audio::{Audio, AudioSource};
 
-use crate::{FlapEvent, GameResetEvent, IncreaseScoreEvent, Layer};
+use crate::{DiedEvent, FlapEvent, IncreaseScoreEvent};
 
 pub struct SoundsPlugin;
 
 impl Plugin for SoundsPlugin {
     fn build(&self, app: &mut App) {
         app.add_startup_system(prepare_audio)
-            .add_system(handle_game_reset)
+            .add_system(handle_died)
             .add_system(handle_flap)
             .add_system(handle_point);
     }
@@ -30,12 +30,12 @@ fn prepare_audio(mut commands: Commands, asset_server: ResMut<AssetServer>, audi
     commands.insert_resource(audio_state);
 }
 
-fn handle_game_reset(
-    mut game_reset_events: EventReader<GameResetEvent>,
+fn handle_died(
+    mut died_events: EventReader<DiedEvent>,
     audio: Res<Audio>,
     audio_state: ResMut<AudioState>,
 ) {
-    if game_reset_events.iter().next().is_some() {
+    if died_events.iter().next().is_some() {
         audio.play(audio_state.hit.clone());
     }
 }

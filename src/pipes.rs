@@ -2,13 +2,13 @@ use bevy::prelude::*;
 use heron::prelude::*;
 use rand::Rng;
 
-use crate::{GameResetEvent, GameState, Layer, WIN_HEIGHT, WIN_WIDTH};
+use crate::{game_state::GameState, GameResetEvent, Layer, WIN_HEIGHT, WIN_WIDTH};
 
 const PIPE_SPACING_X: f32 = (WIN_WIDTH / 5.0) + (PIPE_WIDTH / 5.0);
-const PIPE_SPACING_Y: f32 = 130.0; // 150.0;
+const PIPE_SPACING_Y: f32 = 140.0;
 const PIPE_WIDTH: f32 = 80.0;
 const PIPE_HEIGHT: f32 = WIN_HEIGHT - PIPE_WIDTH / 2.0;
-const PIPE_PADDING: f32 = 200.0;
+const PIPE_PADDING: f32 = 160.0;
 const PIPE_SPEED: f32 = 100.0;
 
 pub struct PipesPlugin;
@@ -57,7 +57,6 @@ fn spawn_pipe(commands: &mut Commands, asset_server: &AssetServer, mut x: f32, y
                 .spawn_bundle(SpriteBundle {
                     texture: asset_server.load("sprites/pipe.png"),
                     sprite: Sprite {
-                        // color: Color::rgb(0.75, 0.0, 0.25),
                         custom_size: Some(Vec2::new(PIPE_WIDTH, PIPE_HEIGHT)),
                         flip_y: true,
                         ..Default::default()
@@ -74,11 +73,6 @@ fn spawn_pipe(commands: &mut Commands, asset_server: &AssetServer, mut x: f32, y
                     half_extends: Vec3::new(PIPE_WIDTH / 2.0, PIPE_HEIGHT / 2.0, 0.0),
                     border_radius: None,
                 })
-                // .insert(PhysicMaterial {
-                //     friction: 1.0,
-                //     density: 10.0,
-                //     restitution: 3.0,
-                // })
                 .insert(
                     CollisionLayers::none()
                         .with_group(Layer::World)
@@ -91,7 +85,6 @@ fn spawn_pipe(commands: &mut Commands, asset_server: &AssetServer, mut x: f32, y
                 .spawn_bundle(SpriteBundle {
                     texture: asset_server.load("sprites/pipe.png"),
                     sprite: Sprite {
-                        // color: Color::rgb(0.25, 0.0, 0.75),
                         custom_size: Some(Vec2::new(PIPE_WIDTH, PIPE_HEIGHT)),
                         ..Default::default()
                     },
@@ -107,11 +100,6 @@ fn spawn_pipe(commands: &mut Commands, asset_server: &AssetServer, mut x: f32, y
                     half_extends: Vec3::new(PIPE_WIDTH / 2.0, PIPE_HEIGHT / 2.0, 0.0),
                     border_radius: None,
                 })
-                // .insert(PhysicMaterial {
-                //     friction: 1.0,
-                //     density: 10.0,
-                //     restitution: 3.0,
-                // })
                 .insert(
                     CollisionLayers::none()
                         .with_group(Layer::World)
