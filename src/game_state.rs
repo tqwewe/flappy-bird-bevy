@@ -7,11 +7,18 @@ pub struct GameStatePlugin;
 impl Plugin for GameStatePlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource(GameState::Waiting)
-            .add_system(handle_died_event)
-            .add_system(handle_restart_input)
-            .add_event::<GameStartedEvent>();
+            .add_event::<GameStartedEvent>()
+            .add_system_set(
+                SystemSet::new()
+                    .label(GameStateLabel)
+                    .with_system(handle_died_event)
+                    .with_system(handle_restart_input),
+            );
     }
 }
+
+#[derive(Clone, Hash, Debug, PartialEq, Eq, SystemLabel)]
+pub struct GameStateLabel;
 
 pub enum GameState {
     Waiting,

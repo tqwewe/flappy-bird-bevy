@@ -8,7 +8,7 @@ use bevy_easings::{
 use heron::prelude::*;
 
 use crate::{
-    game_state::{run_if_playing, GameStartedEvent, GameState},
+    game_state::{run_if_playing, GameStartedEvent, GameState, GameStateLabel},
     DiedEvent, FlapEvent, GameResetEvent, Layer,
 };
 
@@ -21,7 +21,7 @@ impl Plugin for BirdPlugin {
         app.add_plugin(EasingsPlugin)
             .add_startup_system(spawn_bird)
             .add_system(handle_game_started.label(GameStartedStage))
-            .add_system(bird_input.after(GameStartedStage))
+            .add_system(bird_input.after(GameStartedStage).after(GameStateLabel))
             .add_system(handle_game_reset)
             .add_system(handle_died)
             .add_system(custom_ease_system::<Rotation>.with_run_criteria(run_if_playing))
