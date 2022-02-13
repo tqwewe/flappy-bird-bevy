@@ -42,6 +42,7 @@ fn main() {
             title: "Flappy Burd".to_string(),
             width: WIN_WIDTH,
             height: WIN_HEIGHT,
+            resizable: false,
             ..Default::default()
         })
         .insert_resource(ClearColor(Color::rgb(0.658, 0.8, 1.0)))
